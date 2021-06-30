@@ -1,0 +1,14 @@
+micronaut:
+  server:
+    port: 8081
+  application:
+    name: userEcho
+  security:
+    token:
+      jwt:
+        signatures:
+          secret:
+            refresh-token:
+              secret: pleaseChangeThisSecretForANewOne
+            generator:
+              secret: naoseiquequeeuvootaaquimaiquiinfernoessecagulotemquesermuitogrande

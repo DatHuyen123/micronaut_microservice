@@ -9,14 +9,16 @@ import io.micronaut.http.annotation.Produces
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import io.reactivex.Single
+import javax.annotation.security.PermitAll
+import javax.inject.Inject
 
 @Controller("/user")
 class UserController(private val usernameFetcher: UsernameFetcher) {
 
-    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Secured("ROLE_ADMIN")
     @Produces(MediaType.TEXT_PLAIN)
     @Get
-    fun index(@Header("Authorization") authorization: String): Single<String> {
-        return usernameFetcher.findUsername(authorization)
+    fun index(): Single<String> {
+        return usernameFetcher.findUsername()
     }
 }

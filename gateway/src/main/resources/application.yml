@@ -9,8 +9,13 @@ micronaut:
   security:
     authentication: bearer
     token:
-      jwt:
-        signatures:
-          secret:
-            generator:
-              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
+      propagation:
+        enabled: true
+        service-id-regex: "userecho"
+      oauth2:
+        clients:
+          google:
+            client-id: '291650885725-gkeghigf2jmjskdjbm3enroq6crnhjtu.apps.googleusercontent.com'
+            client-secret: '_k6jxqK8FkmX6yucbRFznxcs'
+            openid:
+              issuer: 'https://accounts.google.com'

@@ -1,8 +1,12 @@
 package com.microservice.fetcher
 
-import io.micronaut.http.annotation.Header
+import com.microservice.model.UserModel
+import com.microservice.model.command.UserRegisterCommand
 import io.reactivex.Single
 
 interface UsernameFetcher {
-    fun findUsername(@Header("Authorization") authorization: String): Single<String>
+    fun findUsername(): Single<String>
+//    fun findUser(): UserModel
+    fun signup(userRegisterCommand: UserRegisterCommand): UserModel
+    fun getByUsername(username: String): UserModel
 }

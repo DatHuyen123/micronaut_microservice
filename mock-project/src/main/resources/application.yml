@@ -1,0 +1,61 @@
+micronaut:
+  server:
+    port: 8081
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowCredentials: true
+          allowedMethods:
+            - OPTIONS
+            - POST
+            - PUT
+            - GET
+            - DELETE
+          exposedHeaders:
+            - Access-Control-Allow-Origin
+            - Access-Control-Allow-Headers
+            - Access-Control-Request-Method
+            - Access-Control-Request-Headers
+            - Origin
+            - Cache-Control
+            - Content-Type
+            - Authorization
+  application:
+    name: mockProject
+  security:
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            refresh-token:
+              secret: pleaseChangeThisSecretForANewOne
+            generator:
+              secret: naoseiquequeeuvootaaquimaiquiinfernoessecagulotemquesermuitogrande
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/micronaut?useSSL=false
+    driverClassName: org.postgresql.Driver
+    username: datdv
+    password: 123456
+    dialect: org.hibernate.dialect.PostgreSQL9Dialect
+    maxActiveConnections: 5
+#  default:
+#    url: ${JDBC_URL:`jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE`}
+#    username: ${JDBC_USER:admin}
+#    password: ${JDBC_PASSWORD:admin}
+#    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+
+jpa:
+  default:
+    entity-scan:
+      classpath: true
+      packages: 'com.dirox'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+        enable_lazy_load_no_trans: true

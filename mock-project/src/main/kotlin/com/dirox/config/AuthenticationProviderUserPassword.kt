@@ -1,34 +1,34 @@
-package com.microservice.config
+package com.dirox.config
 
-import com.microservice.fetcher.UsernameFetcher
-import com.microservice.model.UserModel
+import com.dirox.service.UserService
 import io.micronaut.http.HttpRequest
 import io.micronaut.security.authentication.*
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
 import org.reactivestreams.Publisher
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationProviderUserPassword(
-    private val usernameFetcher: UsernameFetcher
-): AuthenticationProvider {
+class AuthenticationProviderUserPassword : AuthenticationProvider {
 
-
+    @Inject
+    lateinit var userService: UserService
 
     override fun authenticate(
         httpRequest: HttpRequest<*>?,
         authenticationRequest: AuthenticationRequest<*, *>?
     ): Publisher<AuthenticationResponse> {
+
         val userName = authenticationRequest?.identity.toString()
         val password = authenticationRequest?.secret.toString()
 
-        val userModel: UserModel = usernameFetcher.getByUsername(userName)
+        val user = userService.getUserByUserName(userName)
 
         return Flowable.create({ emitter: FlowableEmitter<AuthenticationResponse> ->
-            if (userName == userModel.userName && password == userModel.password) {
-                emitter.onNext(UserDetails(userName, arrayListOf("ROLE_ADMIN")))
+            if (user != null && userName == user.userName && password == user.password) {
+                emitter.onNext(UserDetails(userName, arrayListOf(user.role)))
                 emitter.onComplete()
             } else {
                 emitter.onError(AuthenticationException(AuthenticationFailed()))

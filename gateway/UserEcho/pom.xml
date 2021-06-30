@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.microservice</groupId>
-    <artifactId>gateway</artifactId>
+    <artifactId>UserEcho</artifactId>
     <version>0.1</version>
     <packaging>${packaging}</packaging>
 
@@ -19,7 +19,7 @@
         <!-- If you are building with JDK 9 or higher, you can uncomment the lines below to set the release version -->
         <!-- <release.version>8</release.version> -->
         <micronaut.version>2.5.5</micronaut.version>
-        <exec.mainClass>com.microservice.ApplicationKt</exec.mainClass>
+        <exec.mainClass>com.microservice.UserEchoApplication</exec.mainClass>
         <kotlinVersion>1.4.32</kotlinVersion>
         <micronaut.runtime>netty</micronaut.runtime>
     </properties>
@@ -170,8 +170,9 @@
                                 </annotationProcessorPath>
                             </annotationProcessorPaths>
                             <annotationProcessorArgs>
-                                <annotationProcessorArg>micronaut.processing.group=com.dirox</annotationProcessorArg>
-                                <annotationProcessorArg>micronaut.processing.module=mockProject</annotationProcessorArg>
+                                <annotationProcessorArg>micronaut.processing.group=com.microservice
+                                </annotationProcessorArg>
+                                <annotationProcessorArg>micronaut.processing.module=userEcho</annotationProcessorArg>
                             </annotationProcessorArgs>
                         </configuration>
                     </execution>
